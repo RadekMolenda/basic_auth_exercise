@@ -15,7 +15,6 @@ defmodule BasicAuthExercise.PageControllerTest do
     conn = conn
     |> with_valid_authorization_header()
     |> get("/")
-    assert response(conn, 200) == "unauthorized"
+    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
   end
-
 end
