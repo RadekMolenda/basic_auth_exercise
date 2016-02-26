@@ -8,11 +8,22 @@ defmodule BasicAuth do
   def call(conn, [username: username, password: password]) do
     case get_req_header(conn, "authorization") do
       ["Basic " <> auth] ->
-        conn
+        if auth == encode(username, password) do
+          conn
+        else
+          unauthorized(conn)
+        end
       _ ->
-        conn
-        |> send_resp(401, "unauthorized")
-        |> halt()
+        unauthorized(conn)
     end
   end
+
+  defp encode(username, password), do: Base.encode64(username <> ":" <> password)
+
+  defp unauthorized(conn) do
+    conn
+    |> send_resp(401, "unauthorized")
+    |> halt()
+  end
+
 end
