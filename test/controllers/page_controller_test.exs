@@ -14,6 +14,7 @@ defmodule BasicAuthExercise.PageControllerTest do
   test "GET / without authorization header should throw 401", %{conn: conn} do
     conn = get conn, "/"
     assert response(conn, 401) == "unauthorized"
+    assert get_resp_header(conn, "www-authenticate") == ["WWW-Authenticate: Basic realm=\"Thou Shalt not pass\""]
   end
 
   test "GET / with correct authorization should be OK", %{conn: conn} do
@@ -28,5 +29,6 @@ defmodule BasicAuthExercise.PageControllerTest do
     |> with_invalid_authorization_header()
     |> get("/")
     assert response(conn, 401) == "unauthorized"
+    assert get_resp_header(conn, "www-authenticate") == ["WWW-Authenticate: Basic realm=\"Thou Shalt not pass\""]
   end
 end
