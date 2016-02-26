@@ -16,7 +16,7 @@ defmodule BasicAuthExercise.PageControllerTest do
     assert response(conn, 401) == "unauthorized"
   end
 
-  test "GET / with correct authorization be OK", %{conn: conn} do
+  test "GET / with correct authorization should be OK", %{conn: conn} do
     conn = conn
     |> with_valid_authorization_header()
     |> get("/")
