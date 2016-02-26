@@ -4,6 +4,8 @@ defmodule BasicAuth do
   @realm "Basic realm=\"Thou Shalt not pass\""
 
   def init(opts) do
+    Keyword.fetch!(opts, :username)
+    Keyword.fetch!(opts, :password)
     opts
   end
 
@@ -28,5 +30,4 @@ defmodule BasicAuth do
     |> send_resp(401, "unauthorized")
     |> halt()
   end
-
 end
