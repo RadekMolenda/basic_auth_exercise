@@ -1,6 +1,8 @@
 defmodule BasicAuth do
   import Plug.Conn
 
+  @realm "Basic realm=\"Thou Shalt not pass\""
+
   def init(opts) do
     opts
   end
@@ -22,6 +24,7 @@ defmodule BasicAuth do
 
   defp unauthorized(conn) do
     conn
+    |> put_resp_header("www-authenticate", @realm)
     |> send_resp(401, "unauthorized")
     |> halt()
   end
