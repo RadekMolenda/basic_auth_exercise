@@ -3,6 +3,6 @@ defmodule BasicAuthExercise.PageControllerTest do
 
   test "GET / without authorization header should throw 401", %{conn: conn} do
     conn = get conn, "/"
-    assert html_response(conn, 401) == "unauthorized"
+    assert response(conn, 401) == "unauthorized"
   end
 end

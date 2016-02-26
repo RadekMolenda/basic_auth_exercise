@@ -7,5 +7,7 @@ defmodule BasicAuth do
 
   def call(conn, opts) do
     conn
+    |> send_resp(401, "unauthorized")
+    |> halt()
   end
 end
